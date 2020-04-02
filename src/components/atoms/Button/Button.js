@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 const Button = styled.button`
   padding: 0;
-  background-color: ${({ theme }) => theme.primary};
+  background-color: ${({ theme }) => theme.note};
   width: 220px;
   height: 47px;
   border: none;
@@ -12,8 +12,8 @@ const Button = styled.button`
   font-size: 16px;
   text-transform: uppercase;
 
-  ${({ secondary }) =>
-    secondary &&
+  ${({ twitter }) =>
+    twitter &&
     css`
       background-color: hsl(0, 0%, 90%);
       width: 105px;

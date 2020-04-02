@@ -1,8 +1,10 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
 import Button from 'components/atoms/Button/Button';
+import LinkIcon from 'assets/icons/link.svg';
 
 const StyledWrapper = styled.div`
   min-height: 380px;
@@ -15,8 +17,13 @@ const StyledWrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  background-color: ${({ yellow, theme }) => (yellow ? theme.primary : 'white')};
+  position: relative;
   padding: 17px 30px;
+  background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
+
+  :first-of-type {
+    z-index: 9999;
+  }
   ${({ flex }) =>
     flex &&
     css`
@@ -34,18 +41,52 @@ const DateInfo = styled(Paragraph)`
 const StyledHeading = styled(Heading)`
   margin: 5px 0 0;
 `;
-const Card = () => (
+
+const StyledAvatar = styled.img`
+  width: 86px;
+  height: 86px;
+  border: 5px solid ${({ theme }) => theme.twitter};
+  border-radius: 50px;
+  position: absolute;
+  right: 25px;
+  top: 25px;
+`;
+
+const StyledLinkButton = styled.a`
+  display: block;
+  width: 47px;
+  height: 47px;
+  border-radius: 50px;
+  background: white url(${LinkIcon}) no-repeat;
+  background-size: 60%;
+  background-position: 50%;
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const Card = ({ cardType }) => (
   <StyledWrapper>
-    <InnerWrapper yellow>
+    <InnerWrapper activeColor={cardType}>
       <StyledHeading>Hello Denis and World</StyledHeading>
       <DateInfo>3 days ago</DateInfo>
+      {cardType === 'twitter' && <StyledAvatar src="https://avatars.io/twitter/hello_roman" />}
+      {cardType === 'article' && <StyledLinkButton href="https://google.com" />}
     </InnerWrapper>
-    <InnerWrapper>
+    <InnerWrapper flex>
       <Paragraph>
         lorem ipsum dolor site amet co lorem ipsum dolor site amet co lorem ipsum dolor site amet co{' '}
       </Paragraph>
-      <Button secondary> REMOVE</Button>
+      <Button twitter> REMOVE</Button>
     </InnerWrapper>
   </StyledWrapper>
 );
+Card.propTypes = {
+  cardType: propTypes.oneOf(['note', 'twitter', 'article']),
+};
+Card.defaultProps = {
+  cardType: 'note',
+};
+
 export default Card;
