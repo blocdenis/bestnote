@@ -1,4 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import UserPageTemplate from 'templates/UserPageTemplate';
 
-const Twitters = () => <h1>Twitters view</h1>;
+import Card from 'components/molecules/Card/Card';
+
+const Twitters = () => (
+  <UserPageTemplate pageType="twitter">
+    <Card cardType="twitter" />
+    <Card cardType="twitter" />
+    <Card cardType="twitter" />
+    <Card cardType="twitter" />
+    <Card cardType="twitter" />
+  </UserPageTemplate>
+);
+
 export default Twitters;
